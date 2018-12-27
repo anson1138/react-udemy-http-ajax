@@ -9,7 +9,7 @@ class FullPost extends Component {
     }
 
     postDeleteHandler = () => {
-        axios.delete('http://jsonplaceholder.typicode.com/posts/' + this.props.id)
+        axios.delete('/posts/' + this.props.id)
             .then(response => {
                 console.log(response)
             });
@@ -23,7 +23,7 @@ class FullPost extends Component {
             // which it is w/ setState so put if condition here to avoid
             // infinite loop of network fetching of data to axios method.
             if (!this.state.loadedPost || this.state.loadedPost.id !== this.props.id) {
-                axios.get('http://jsonplaceholder.typicode.com/posts/' + this.props.id)
+                axios.get('/posts/' + this.props.id)
                 .then(response => {
                     // console.log(response)
                     this.setState({loadedPost: response.data})

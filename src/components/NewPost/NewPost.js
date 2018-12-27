@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axiosOverride from '../../axiosOverride';
 import './NewPost.css';
 
 class NewPost extends Component {
@@ -15,7 +15,7 @@ class NewPost extends Component {
             body: this.state.content,
             author: this.state.author
         }
-        axios.post("http://jsonplaceholder.typicode.com/posts", data)
+        axiosOverride.post("/posts", data)
             .then(response => {
                 console.log(response)
             });
