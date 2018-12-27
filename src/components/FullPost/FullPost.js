@@ -7,6 +7,14 @@ class FullPost extends Component {
     state = {
         loadedPost: null
     }
+
+    postDeleteHandler = () => {
+        axios.delete('http://jsonplaceholder.typicode.com/posts/' + this.props.id)
+            .then(response => {
+                console.log(response)
+            });
+
+    }
     componentDidUpdate() {
         if (this.props.id) {
             // only fetch data if loadedPost is null or is different postid
@@ -35,11 +43,14 @@ class FullPost extends Component {
                     <h1>{this.state.loadedPost.title}</h1>
                     <p>{this.state.loadedPost.body}</p>
                     <div className="Edit">
-                        <button className="Delete">Delete</button>
+                        <button className="Delete" onClick={this.postDeleteHandler}>Delete</button>
                     </div>
                 </div>
 
             );
+        if (this.state.deletePost) {
+            post = <p stype={{ textAlign: 'center' }}>Please click Post one more time!</p>;
+        }
 
         }
         return post;
