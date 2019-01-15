@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axiosOverride from '../../axiosOverride';
+import axiosOverride from '../../../axiosOverride';
 import './NewPost.css';
 
 class NewPost extends Component {
@@ -7,6 +7,10 @@ class NewPost extends Component {
         title: '',
         content: '',
         author: 'Max'
+    }
+
+    componentDidMount () {
+        console.log(this.props)
     }
 
     postDataHandler = () => {
