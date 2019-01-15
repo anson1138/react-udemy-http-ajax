@@ -15,26 +15,39 @@ class FullPost extends Component {
             });
 
     }
-    componentDidMount() {
-        console.log(this.props.match.params.id)
+
+    loadData() {
         if (this.props.match.params.id) {
             // only fetch data if loadedPost is null or is different postid
             // otherwise you can end up infinit loop fetching data b/c
             // componentDidUpdate gets invoked everytime state is updated
             // which it is w/ setState so put if condition here to avoid
             // infinite loop of network fetching of data to axios method.
-            if (!this.state.loadedPost || this.state.loadedPost.id !== this.props.match.params.id) {
-            // if (!this.state.loadedPost || this.state.loadedPost.id !== this.props.id) {
+            if (!this.state.loadedPost || this.state.loadedPost.id !== +this.props.match.params.id) {
+                // if (!this.state.loadedPost || this.state.loadedPost.id !== this.props.id) {
                 axios.get('/posts/' + this.props.match.params.id)
-                // axios.get('/posts/' + this.props.id)
-                .then(response => {
-                    // console.log(response)
-                    this.setState({loadedPost: response.data})
-                })
+                    // axios.get('/posts/' + this.props.id)
+                    .then(response => {
+                        // console.log(response)
+                        this.setState({ loadedPost: response.data })
+                    })
 
             }
         }
+
     }
+    componentDidMount() {
+        console.log(this.props.match.params.id)
+        this.loadData();
+
+    }
+
+    componentDidUpdate () {
+        this.loadData();
+
+    }
+
+
     render () {
         let post = <p stype={{textAlign: 'center'}}>Please click Post!</p>;
         if (this.props.match.params.id) {
