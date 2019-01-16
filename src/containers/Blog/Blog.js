@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 import Posts from './Posts/Posts';
 import NewPosts from './NewPost/NewPost';
 // import FullPost from './FullPost/FullPost';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import './Blog.css';
 
 class Blog extends Component {
+    state = {
+        auth: false
+    }
 
 
 
@@ -30,7 +33,7 @@ class Blog extends Component {
                                     textDecoration: 'underline'
                                 }}>Posts</NavLink></li>
                             <li><NavLink to={{
-                                pathname: 'new-post',
+                                pathname: '/new-post',
                                 hash: '#submit',
                                 search: '?quick-submit=true'
                             }}>New Post</NavLink></li>
@@ -42,8 +45,10 @@ class Blog extends Component {
                 {/* <Route path="/"  render={() => <h1>root slash</h1>} /> */}
                 {/* <Route path="/new-post" render={() => <h1>new post</h1>} /> */}
                 <Switch>
-                    <Route path="/new-post" component={NewPosts} />
+                    {this.state.auth ? <Route path="/new-post" component={NewPosts} /> : null};
                     <Route path="/posts" component={Posts} />
+                    <Route render={() => <h1>Not Found</h1>} />
+                    {/* <Redirect from="/" to="/posts" /> */}
 
                 </Switch>
 
